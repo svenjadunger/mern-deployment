@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/flowers", flowersRouter);
 
 mongoose
-  .connect(process.env.MONGO_URI || "mongodb://localhost:27017/Plants")
+  .connect("mongodb://localhost:27017/Plants")
   .then(() => console.log("Connection to Mongo DB established"))
   .catch((err) => console.log(err));
 
