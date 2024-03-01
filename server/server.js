@@ -15,3 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+
+import mongoose from "mongoose";
+mongoose
+  .connect("mongodb://localhost:27017/Plants")
+  .then(() => console.log("Connection to Mongo DB established"))
+  .catch((err) => console.log(err));
