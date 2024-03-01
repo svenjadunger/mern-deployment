@@ -10,7 +10,7 @@ const Flower = mongoose.model("Flower", flowerSchema);
 
 router.get("/all", async (req, res) => {
   try {
-    const flowers = await User.find({});
+    const flowers = await Flower.find({});
     res.send(flowers);
   } catch (err) {
     res.status(500).send({ error: "An error occurred" });
