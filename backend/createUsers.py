@@ -32,4 +32,4 @@ def create_users(n):
             print(f"Error creating user {i+1}: {e}")
     
 
-create_users(10000)
+create_users(50)

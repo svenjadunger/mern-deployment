@@ -1,3 +1,4 @@
+import Plant from "./components/Plant"
 
 
 function App() {
@@ -5,7 +6,9 @@ function App() {
 
   return (
     <>
-     
+      <h1>Was geht</h1>
+      <p>Hi</p>
+      <Plant/>
     </>
   )
 }
