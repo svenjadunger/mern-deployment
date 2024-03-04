@@ -75,10 +75,10 @@ exports.update = async (req, res) => {
       });
     });
 };
-// Delete a user with the specified id in the request
+
 // Delete a user with the specified id in the request
 exports.destroy = async (req, res) => {
-  await UserModel.findByIdAndDelete(req.params.id) // Changed from findByIdAndRemove to findByIdAndDelete
+  await UserModel.findByIdAndDelete(req.params.id) 
     .then((data) => {
       if (!data) {
         res.status(404).send({
