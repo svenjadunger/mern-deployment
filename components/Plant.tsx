@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 type Plant = {
   _id: string;
     name: string;
-  
+    family: string;
 };
 
 const Plant: React.FC = () => {
