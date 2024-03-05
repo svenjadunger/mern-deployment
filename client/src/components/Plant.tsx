@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 type PlantType = {
   _id: string;
-  commonName?: string; // Mark as optional since not all plants have a common name
+  commonName?: string; 
   family: string;
   scientificNameWithAuthor: string;
   symbol?: string;
