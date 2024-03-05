@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 type PlantType = {
   _id: string;
-  commonName?: string; 
+  commonName?: string;
   family: string;
   scientificNameWithAuthor: string;
   symbol?: string;
@@ -13,13 +13,21 @@ const PlantList: React.FC = () => {
   const [plants, setPlants] = useState<PlantType[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/plant/65e6126882cafc76e2da8289")
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchPlants = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/plant/");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
         setPlants(data);
         console.log("Number of fetched plants:", data.length);
-      })
-      .catch((error) => console.error("Fetching plants failed:", error));
+      } catch (error) {
+        console.error("Fetching plants failed:", error);
+      }
+    };
+
+    fetchPlants();
   }, []);
 
   return (
@@ -34,10 +42,8 @@ const PlantList: React.FC = () => {
       <tbody>
         {plants.map((plant) => (
           <tr key={plant._id}>
-            <td>{plant.commonName || "N/A"}</td>{" "}
-            {/* Display "N/A" if commonName is missing */}
-            <td>{plant.family || "Unknown"}</td>{" "}
-            {/* Display "Unknown" if family is empty */}
+            <td>{plant.commonName || "N/A"}</td>
+            <td>{plant.family || "Unknown"}</td>
             <td>{plant.scientificNameWithAuthor}</td>
           </tr>
         ))}

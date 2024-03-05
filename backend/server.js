@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const cors = require('cors');
 const dbConfig = require("./config/database.config.js");
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
@@ -24,6 +24,8 @@ const app = express();
 // Import Route-Modules
 const UserRoute = require("./app/routes/User");
 const PlantRoute = require("./app/routes/Plant");
+
+app.use(cors());
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
