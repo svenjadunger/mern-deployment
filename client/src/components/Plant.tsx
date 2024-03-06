@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  TableFooter,
+  TableHead,
+  TableRow,
+} from "@/components/ui/table";
 
+// Angenommen, dies ist der Typ für Ihre Pflanzendaten
 type PlantType = {
   _id: string;
   commonName?: string;
@@ -14,41 +25,35 @@ const PlantList: React.FC = () => {
 
   useEffect(() => {
     const fetchPlants = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/plant/");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setPlants(data);
-        console.log("Number of fetched plants:", data.length);
-      } catch (error) {
-        console.error("Fetching plants failed:", error);
-      }
+      const response = await fetch("http://localhost:3000/plant/");
+      const data = await response.json();
+      setPlants(data);
     };
 
     fetchPlants();
   }, []);
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Common Name</th>
-          <th>Family</th>
-          <th>Scientific Name</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Table>
+      <TableCaption>A list of your plants</TableCaption>
+      <TableHead>
+        <TableRow>
+          <TableHead>Common Name</TableHead>{" "}
+          {/* Ändern Sie diesen und die folgenden zurück zu TableHead, wenn TableHead für th vorgesehen ist. */}
+          <TableHead>Family</TableHead>
+          <TableHead>Scientific Name</TableHead>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {plants.map((plant) => (
-          <tr key={plant._id}>
-            <td>{plant.commonName || "N/A"}</td>
-            <td>{plant.family || "Unknown"}</td>
-            <td>{plant.scientificNameWithAuthor}</td>
-          </tr>
+          <TableRow key={plant._id}>
+            <TableCell>{plant.commonName || "N/A"}</TableCell>
+            <TableCell>{plant.family}</TableCell>
+            <TableCell>{plant.scientificNameWithAuthor}</TableCell>
+          </TableRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 };
 
