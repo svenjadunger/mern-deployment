@@ -1,6 +1,5 @@
 import Plant from "./components/Plant"
 
-
 function App() {
  
 

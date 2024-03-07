@@ -4,8 +4,6 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  TableFooter,
   TableHead,
   TableRow,
 } from "@/components/ui/table";
