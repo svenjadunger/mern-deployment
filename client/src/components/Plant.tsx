@@ -5,6 +5,7 @@ import {
   TableCaption,
   TableCell,
   TableHead,
+  TableHeader,
   TableRow,
 } from "@/components/ui/table";
 
@@ -34,18 +35,19 @@ const PlantList: React.FC = () => {
   return (
     <Table>
       <TableCaption>A list of your plants</TableCaption>
-      <TableHead>
+      <TableHeader>
         <TableRow>
-          <TableHead>Common Name</TableHead>{" "}
-          {/* Ändern Sie diesen und die folgenden zurück zu TableHead, wenn TableHead für th vorgesehen ist. */}
+          <TableHead className="w-[100px]">Common Name</TableHead>
           <TableHead>Family</TableHead>
           <TableHead>Scientific Name</TableHead>
         </TableRow>
-      </TableHead>
+      </TableHeader>
       <TableBody>
         {plants.map((plant) => (
           <TableRow key={plant._id}>
-            <TableCell>{plant.commonName || "N/A"}</TableCell>
+            <TableCell className="font-medium">
+              {plant.commonName || "N/A"}
+            </TableCell>
             <TableCell>{plant.family}</TableCell>
             <TableCell>{plant.scientificNameWithAuthor}</TableCell>
           </TableRow>
