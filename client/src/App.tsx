@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <NavigationMenuDemo />
-      <p className="text-center">Scroll down to see 🪴🌿🌵</p>
+      <p className="text-center">🪴🌿🌵</p>
 
       <Plant />
     </>
