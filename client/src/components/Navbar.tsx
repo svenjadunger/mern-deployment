@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-
 import { cn } from "@/lib/utils";
 // import { Icons } from "./components/icons";
 import {
@@ -110,6 +109,13 @@ export function NavigationMenuDemo() {
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Documentation
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/register" passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Registration
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
