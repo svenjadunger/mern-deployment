@@ -1,15 +1,24 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Plant from "./components/Plant";
-import "../globals.css";
+import PlantDetail from "./components/PlantDetail"; 
 import { NavigationMenuDemo } from "./components/Navbar";
+import "../globals.css";
+
+
 
 function App() {
   return (
-    <>
-      <NavigationMenuDemo />
-      <p className="text-center">🪴🌿🌵</p>
-
-      <Plant />
-    </>
+    <Router>
+      <>
+        <NavigationMenuDemo />
+        <p className="text-center">🪴🌿🌵</p>
+        <Routes>
+          <Route path="/" element={<Plant />} />
+          <Route path="/plants/:plantId" element={<PlantDetail />} />
+        </Routes>
+      </>
+    </Router>
   );
 }
 

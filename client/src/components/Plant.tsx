@@ -8,8 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Link } from "react-router-dom";
 
-// Angenommen, dies ist der Typ für Ihre Pflanzendaten
+
 type PlantType = {
   _id: string;
   commonName?: string;
@@ -46,7 +47,10 @@ const PlantList: React.FC = () => {
         {plants.map((plant) => (
           <TableRow key={plant._id}>
             <TableCell className="font-medium">
-              {plant.commonName || "N/A"}
+              <Link to={`/plants/${plant._id}`}>
+                {plant.commonName || "N/A"}
+              </Link>{" "}
+              
             </TableCell>
             <TableCell>{plant.family}</TableCell>
             <TableCell>{plant.scientificNameWithAuthor}</TableCell>
