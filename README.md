@@ -4,9 +4,9 @@ This project represents a first attempt at working with MongoDB and practicing b
 
 ## Technologies used
 
--React
--Typescript
--MongoDB
--Docker
--Express for Node.js
--Shadcn/ui (component library)
+- React
+- Typescript
+- MongoDB
+- Docker
+- Express for Node.js
+- Shadcn/ui (component library)
