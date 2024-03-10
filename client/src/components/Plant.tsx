@@ -35,7 +35,7 @@ const PlantList: React.FC = () => {
 
   return (
     <Table>
-      <TableCaption>A list of your plants</TableCaption>
+      <TableCaption>A list of plants</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Common Name</TableHead>
