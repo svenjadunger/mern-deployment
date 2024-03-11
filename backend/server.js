@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const dbConfig = require("./config/database.config.js");
 const mongoose = require("mongoose");
+// const bcrypt = require("bcryptjs");
 mongoose.Promise = global.Promise;
 
 // Connection to Database
