@@ -8,7 +8,31 @@ function Register() {
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    // Implementierung zum Senden der Daten an den Backend-Server
+
+    const url = "http://localhost:5000/register"; 
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          picture: picture,
+        }),
+      });
+
+      const data = await response.json();
+      if (response.status === 201) {
+        console.log("Account successfully created", data);
+      } else {
+        console.error("Registration failed", data.error);
+      }
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
   };
 
   return (
