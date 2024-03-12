@@ -3,8 +3,11 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const dbConfig = require("./config/database.config.js");
 const mongoose = require("mongoose");
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 mongoose.Promise = global.Promise;
+const { multerUpload } = require("./middlewares/uploadMiddleware");
+// Importiere deine Bild-Upload-Routen, falls separat definiert
+
 
 // Connection to Database
 mongoose
@@ -25,6 +28,7 @@ const app = express();
 // Import Route-Modules
 const UserRoute = require("./app/routes/User");
 const PlantRoute = require("./app/routes/Plant");
+const imageRoutes = require("./app/routes/imageRoutes");
 
 app.use(cors());
 
@@ -59,13 +63,17 @@ function getDurationInMilliseconds(start) {
 // Routes
 app.use("/user", UserRoute);
 app.use("/plant", PlantRoute);
+app.use("/image",imageRoutes)
 
 // Root-Route
 app.get("/", (req, res) => {
   res.json({ message: "Hello Crud Node Express" });
 });
 
-// Server start
+// Hier könntest du deine Upload-Routen definieren oder importieren
+// Beispiel: app.use('/api/images', imageRoutes);
+
+// Server-Start
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");
 });
