@@ -28,11 +28,11 @@ const app = express();
 // Import Route-Modules
 const UserRoute = require("./app/routes/User");
 const PlantRoute = require("./app/routes/Plant");
-const imageRoutes = require("./app/routes/imageRoutes");
+const imageRoute = require("./app/routes/Image"); // Pfad ggf. anpasse
 
 app.use(cors());
 
-
+app.use("/UserImages", express.static("UserImages"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -63,7 +63,7 @@ function getDurationInMilliseconds(start) {
 // Routes
 app.use("/user", UserRoute);
 app.use("/plant", PlantRoute);
-app.use("/image",imageRoutes)
+app.use("/image",imageRoute)
 
 // Root-Route
 app.get("/", (req, res) => {
