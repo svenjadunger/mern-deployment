@@ -5,25 +5,26 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [picture, setPicture] = useState("");
+  const [picture, setPicture] = useState<File | null>(null);
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+
+   if (picture) {
+     formData.append("picture", picture);
+   }
 
     const url = "http://localhost:3000/user"; //kein register hintendran??
 
     try {
       const response = await fetch(url, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          password: password,
-          picture: picture,
-        }),
+        body: formData, // JSON.stringify remove
       });
 
       const data = await response.json();
@@ -40,7 +41,11 @@ function Register() {
   return (
     <div className="container mx-auto h-screen flex items-center justify-center">
       <div className="max-w-md w-full space-y-8">
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form
+          className="mt-8 space-y-6"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
           <input
             type="text"
             value={name}
@@ -66,10 +71,12 @@ function Register() {
             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
           />
           <input
-            type="text"
-            value={picture}
-            onChange={(e) => setPicture(e.target.value)}
-            placeholder="Picture URL"
+            type="file"
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0]) {
+                setPicture(e.target.files[0]);
+              }
+            }}
             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
           />
           <button
