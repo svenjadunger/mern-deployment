@@ -18,20 +18,29 @@ type PlantType = {
   scientificNameWithAuthor: string;
   symbol?: string;
   synonymSymbol?: string;
+  imageUrl: string;
 };
 
 const PlantList: React.FC = () => {
   const [plants, setPlants] = useState<PlantType[]>([]);
 
-  useEffect(() => {
-    const fetchPlants = async () => {
-      const response = await fetch("http://localhost:3000/plant/");
-      const data = await response.json();
-      setPlants(data);
-    };
+   useEffect(() => {
+     const fetchPlants = async () => {
+       const response = await fetch("http://localhost:3000/plant/");
+       const data = await response.json();
+       const plantsWithImages = data.map(
+         (plant: { family: string | number | boolean }) => ({
+           ...plant,
+           imageUrl: `https://source.unsplash.com/random/?${encodeURIComponent(
+             plant.family
+           )}`,
+         })
+       );
+       setPlants(plantsWithImages);
+     };
 
-    fetchPlants();
-  }, []);
+     fetchPlants();
+   }, []);
 
   return (
     <Table>
@@ -41,6 +50,7 @@ const PlantList: React.FC = () => {
           <TableHead className="w-[100px]">Common Name</TableHead>
           <TableHead>Family</TableHead>
           <TableHead>Scientific Name</TableHead>
+          <TableHead>Image</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -50,10 +60,17 @@ const PlantList: React.FC = () => {
               <Link to={`/plants/${plant._id}`}>
                 {plant.commonName || "N/A"}
               </Link>{" "}
-              
             </TableCell>
             <TableCell>{plant.family}</TableCell>
             <TableCell>{plant.scientificNameWithAuthor}</TableCell>
+            <TableCell>
+              <img
+                src={plant.imageUrl}
+                alt="Plant"
+                style={{ width: 100, height: 100 }}
+              />{" "}
+              
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
