@@ -29,11 +29,11 @@ function Register() {
       setFileName(e.target.files[0].name); 
     } else {
       setPicture(null);
-      setFileName(""); // Setzt den Dateinamen zurück, wenn keine Datei ausgewählt ist
+      setFileName(""); 
     }
   };
 
-  // Funktion zum Auslösen des Klick-Events auf den echten Datei-Input
+ 
   const triggerFileInput = () => {
     document.getElementById("fileInput")?.click();
   };
@@ -83,13 +83,13 @@ function Register() {
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid gap-2">
             {" "}
-            {/* space-y-4 für geringeren Abstand */}
+           
            
               <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
                 type="text"
-                className="input-align" // Benutzerdefinierte Klasse hier angewendet
+                className="input-align" 
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
@@ -100,7 +100,7 @@ function Register() {
               <Input
                 id="email"
                 type="email"
-                className="input-align" // Benutzerdefinierte Klasse hier angewendet
+                className="input-align" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -111,7 +111,7 @@ function Register() {
               <Input
                 id="password"
                 type="password"
-                className="input-align" // Benutzerdefinierte Klasse hier angewendet
+                className="input-align"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -141,7 +141,7 @@ function Register() {
           </p>
         </CardContent>
         <CardFooter>
-          {/* Footer-Inhalt hier, falls benötigt */}
+          
         </CardFooter>
       </Card>
     </div>
