@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 
 
+
 type PlantType = {
   _id: string;
   commonName?: string;
@@ -30,10 +31,14 @@ const PlantList: React.FC = () => {
       const data = await response.json();
       const filteredAndEnrichedPlants = data
         .filter(
-          (plant: { commonName: unknown; family: unknown; scientificNameWithAuthor: unknown; }) =>
+          (plant: {
+            commonName: unknown;
+            family: unknown;
+            scientificNameWithAuthor: unknown;
+          }) =>
             plant.commonName && plant.family && plant.scientificNameWithAuthor
-        ) 
-        .map((plant: { family: string | number | boolean; }) => ({
+        )
+        .map((plant: { family: string | number | boolean }) => ({
           ...plant,
           imageUrl: `https://source.unsplash.com/random/?${encodeURIComponent(
             plant.family
@@ -44,7 +49,6 @@ const PlantList: React.FC = () => {
 
     fetchPlants();
   }, []);
-
 
   return (
     <Table>
@@ -63,17 +67,24 @@ const PlantList: React.FC = () => {
             <TableCell className="font-medium">
               <Link to={`/plants/${plant._id}`}>
                 {plant.commonName || "N/A"}
-              </Link>{" "}
+              </Link>
             </TableCell>
             <TableCell>{plant.family}</TableCell>
             <TableCell>{plant.scientificNameWithAuthor}</TableCell>
             <TableCell>
-              <img
-                src={plant.imageUrl}
-                alt="Plant"
-                style={{ width: 100, height: 100 }}
-              />{" "}
-              
+              <div className="flex justify-center">
+                <div className="p-2 border border-gray-200 rounded-lg shadow-sm">
+                  <img
+                    src={plant.imageUrl}
+                    alt="Plant"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              </div>
             </TableCell>
           </TableRow>
         ))}

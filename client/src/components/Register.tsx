@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// Import UI components from the library
+// UI components from the library
 import { Button } from "./ui/button";
 import {
   Card,
@@ -22,11 +22,11 @@ function Register() {
   const [picture, setPicture] = useState<File | null>(null);
   const [fileName, setFileName] = useState("");
 
-  // Handler, um die Dateiauswahl zu behandeln
+  
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setPicture(e.target.files[0]);
-      setFileName(e.target.files[0].name); // Setzt den Namen der ausgewählten Datei
+      setFileName(e.target.files[0].name); 
     } else {
       setPicture(null);
       setFileName(""); // Setzt den Dateinamen zurück, wenn keine Datei ausgewählt ist
