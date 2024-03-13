@@ -67,10 +67,10 @@
 }
  
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply bg-background text-foreground;
+    background-image: url('https://images.unsplash.com/photo-1556262298-e85892643712?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmFja2dyb3VuZCUyMG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D');
+    background-size: cover;
+    background-position: center;
   }
 }
