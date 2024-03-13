@@ -58,7 +58,6 @@ const PlantList: React.FC = () => {
           <TableHead className="w-[100px]">Common Name</TableHead>
           <TableHead>Family</TableHead>
           <TableHead>Scientific Name</TableHead>
-          <TableHead>Image</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

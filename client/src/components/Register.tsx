@@ -13,7 +13,6 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 
-import "./Register.css";
 
 function Register() {
   const [name, setName] = useState("");
