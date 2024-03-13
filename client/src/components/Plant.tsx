@@ -24,23 +24,27 @@ type PlantType = {
 const PlantList: React.FC = () => {
   const [plants, setPlants] = useState<PlantType[]>([]);
 
-   useEffect(() => {
-     const fetchPlants = async () => {
-       const response = await fetch("http://localhost:3000/plant/");
-       const data = await response.json();
-       const plantsWithImages = data.map(
-         (plant: { family: string | number | boolean }) => ({
-           ...plant,
-           imageUrl: `https://source.unsplash.com/random/?${encodeURIComponent(
-             plant.family
-           )}`,
-         })
-       );
-       setPlants(plantsWithImages);
-     };
+  useEffect(() => {
+    const fetchPlants = async () => {
+      const response = await fetch("http://localhost:3000/plant/");
+      const data = await response.json();
+      const filteredAndEnrichedPlants = data
+        .filter(
+          (plant: { commonName: unknown; family: unknown; scientificNameWithAuthor: unknown; }) =>
+            plant.commonName && plant.family && plant.scientificNameWithAuthor
+        ) 
+        .map((plant: { family: string | number | boolean; }) => ({
+          ...plant,
+          imageUrl: `https://source.unsplash.com/random/?${encodeURIComponent(
+            plant.family
+          )}`,
+        }));
+      setPlants(filteredAndEnrichedPlants);
+    };
 
-     fetchPlants();
-   }, []);
+    fetchPlants();
+  }, []);
+
 
   return (
     <Table>
