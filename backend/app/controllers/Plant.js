@@ -1,16 +1,16 @@
 const PlantModel = require("../../model/plant");
-// Create and Save a new plant
+// Create new plant
 exports.create = async (req, res) => {
   if (!req.body.name && !req.body.region && !req.body.family) {
     res.status(400).send({ message: "Content can not be empty!" });
   }
 
  const plant = new PlantModel({
-   symbol: req.body.symbol, // Assuming `symbol` is sent in the request body
-   synonymSymbol: req.body.synonymSymbol, // Assuming `synonymSymbol` is sent in the request body
-   scientificNameWithAuthor: req.body.scientificNameWithAuthor, // Assuming this is sent in the request body
-   commonName: req.body.name, // Adjusted to map `name` from the request to `commonName`
-   family: req.body.family, // Assuming `family` is sent in the request body
+   symbol: req.body.symbol, 
+   synonymSymbol: req.body.synonymSymbol,
+   scientificNameWithAuthor: req.body.scientificNameWithAuthor, 
+   commonName: req.body.name, 
+   family: req.body.family, 
  });
 
 
@@ -28,7 +28,7 @@ exports.create = async (req, res) => {
       });
     });
 };
-// Retrieve all plants from the database.
+// Retrieve plants from  database
 exports.findAll = async (req, res) => {
   try {
     const plant = await PlantModel.find();
@@ -37,7 +37,7 @@ exports.findAll = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-// Find a single Plant with an id
+// Find single Plant with  id
 exports.findOne = async (req, res) => {
   try {
     const plant = await PlantModel.findById(req.params.id);
@@ -46,7 +46,7 @@ exports.findOne = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-// Update a plant by the id in the request
+// Update plant
 exports.update = async (req, res) => {
   if (!req.body) {
     res.status(400).send({
@@ -72,10 +72,9 @@ exports.update = async (req, res) => {
       });
     });
 };
-// Delete a plant with the specified id in the request
-// Delete a plant with the specified id in the request
+// Delete plant 
 exports.destroy = async (req, res) => {
-  await PlantModel.findByIdAndDelete(req.params.id) // Changed from findByIdAndRemove to findByIdAndDelete
+  await PlantModel.findByIdAndDelete(req.params.id) 
     .then((data) => {
       if (!data) {
         res.status(404).send({

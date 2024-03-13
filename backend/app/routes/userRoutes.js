@@ -23,8 +23,7 @@ router.get("/:id", async (req, res) => {
 
 // POST Route for Benutzerregistrierung
 router.post("/register", multerUpload.single("picture"), async (req, res) => {
-  const { name, email, password } = req.body; // `picture` wird nicht mehr hier extrahiert
-  // Der Rest der Logik bleibt gleich, mit einer Anpassung, um das Bild zu verarbeiten:
+  const { name, email, password } = req.body; 
   const picture = req.file ? req.file.path : null;
 
   try {
@@ -43,7 +42,7 @@ router.post("/register", multerUpload.single("picture"), async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      picture, // Hier wird nun der Pfad zum Bild gespeichert, wenn vorhanden
+      picture, 
     });
 
     await user.save();

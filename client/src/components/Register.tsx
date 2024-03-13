@@ -18,7 +18,7 @@ function Register() {
     formData.append("email", email);
     formData.append("password", password);
     if (picture) {
-      formData.append("picture", picture); // Bild zum FormData hinzufügen, wenn ausgewählt
+      formData.append("picture", picture); 
     }
 
    const url = "http://localhost:3000/user/register";

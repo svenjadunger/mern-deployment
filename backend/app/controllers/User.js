@@ -3,22 +3,22 @@
 const UserModel = require("../../model/user");
 const bcrypt = require("bcryptjs");
 const saltRounds = 10;
-// Create and Save a new user
+// Create and Save new user
 exports.create = async (req, res) => {
-  // Deine bestehende Validierungslogik...
+
 
   const user = new UserModel({
     email: req.body.email,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     phone: req.body.phone,
-    password: req.body.password, // Stelle sicher, dass du das Passwort hier hinzufügst
+    password: req.body.password, 
   });
     const imagePath = req.file ? req.file.path : null;
 
   try {
     const savedUser = await user.save();
-    savedUser.password = undefined; // Entfernt das Passwortfeld
+    savedUser.password = undefined; 
     res.status(201).send({
       message: "User created successfully!!",
       user: savedUser,
@@ -32,7 +32,6 @@ exports.create = async (req, res) => {
 
 
 
-// Retrieve all users from the database.
 exports.findAll = async (req, res) => {
   try {
     const user = await UserModel.find();
@@ -41,7 +40,7 @@ exports.findAll = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-// Find a single User with an id
+
 exports.findOne = async (req, res) => {
   try {
     const user = await UserModel.findById(req.params.id);
@@ -50,7 +49,7 @@ exports.findOne = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-// Update a user by the id in the request
+
 exports.update = async (req, res) => {
   if (!req.body) {
     res.status(400).send({
@@ -77,7 +76,7 @@ exports.update = async (req, res) => {
     });
 };
 
-// Delete a user with the specified id in the request
+
 exports.destroy = async (req, res) => {
   await UserModel.findByIdAndDelete(req.params.id) 
     .then((data) => {
@@ -100,11 +99,11 @@ exports.destroy = async (req, res) => {
 
 
 exports.register = async (req, res) => {
-  // Hier kommt deine Logik zur Validierung der anderen Felder
+
   try {
     const user = new User({
-      // Deine anderen Benutzerfelder
-      image: req.file.path, // Pfad zum Bild
+    
+      image: req.file.path, 
     });
     await user.save();
     res.status(201).send({ message: "Benutzer erfolgreich erstellt", user });

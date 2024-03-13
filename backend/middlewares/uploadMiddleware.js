@@ -1,15 +1,15 @@
-// middlewares/uploadMiddleware.js
+
 
 const multer = require("multer");
 const path = require("path");
 
-// Pfad zum Speichern der Bilder definieren
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "UserImages/"); // Speicherort
   },
   filename: function (req, file, cb) {
-    // Benennen der Datei: aktuelles Datum + Originaldateiname
+
     file.originalname = file.originalname.replace(" ", "-");
     cb(null, Date.now() + "-" + file.originalname);
   },

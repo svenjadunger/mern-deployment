@@ -6,10 +6,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 mongoose.Promise = global.Promise;
 const { multerUpload } = require("./middlewares/uploadMiddleware");
-// Importiere deine Bild-Upload-Routen, falls separat definiert
 
 
-// Connection to Database
 // Connection to Database
 mongoose.connect(dbConfig.url)
   .then(() => {
@@ -66,13 +64,12 @@ app.use("/user", userRoutes);
 app.use("/plant", PlantRoute);
 app.use("/image",imageRoute)
 
-// Root-Route
+
 app.get("/", (req, res) => {
   res.json({ message: "Hello Crud Node Express" });
 });
 
-// Hier könntest du deine Upload-Routen definieren oder importieren
-// Beispiel: app.use('/api/images', imageRoutes);
+
 
 // Server-Start
 app.listen(3000, () => {

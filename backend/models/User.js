@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   name: String,
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  picture: String, // Optional for image
+  picture: String, 
   plants: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
-// Vor dem Speichern des Benutzers wird das Passwort verschlüsselt
+// passwort verschlüsselung
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     const salt = await bcrypt.genSalt(10);
@@ -23,7 +23,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// Methode zum Passwortvergleich hinzufügen
+
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
