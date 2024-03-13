@@ -1,5 +1,13 @@
-import { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+// Importieren der Card-Komponenten
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "./ui/card";
 
 interface PlantType {
   commonName: string;
@@ -7,7 +15,6 @@ interface PlantType {
   scientificNameWithAuthor?: string;
   description: string;
 }
-
 
 const PlantDetail = () => {
   const [plant, setPlant] = useState<PlantType | null>(null);
@@ -17,7 +24,6 @@ const PlantDetail = () => {
     fetch(`http://localhost:3000/plant/${plantId}`)
       .then((response) => response.json())
       .then((data) => {
-
         const description =
           data.family && data.scientificNameWithAuthor
             ? `The plant ${data.commonName} (${data.scientificNameWithAuthor}) belongs to the ${data.family} family.`
@@ -25,7 +31,7 @@ const PlantDetail = () => {
 
         setPlant({
           ...data,
-          description, 
+          description,
         });
       })
       .catch((error) => console.error("Error:", error));
@@ -34,21 +40,27 @@ const PlantDetail = () => {
   if (!plant) return <div>Loading...</div>;
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h2 style={{ color: "#33691e" }}>{plant.commonName}</h2>
-      {plant.family && (
-        <p>
-          <strong>Family:</strong> {plant.family}
-        </p>
-      )}
-      {plant.scientificNameWithAuthor && (
-        <p>
-          <strong>Scientific Name:</strong> {plant.scientificNameWithAuthor}
-        </p>
-      )}
-      <p>
-        <strong>Description:</strong> {plant.description}
-      </p>
+    <div className="container mx-auto p-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>{plant.commonName}</CardTitle>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          {plant.family && (
+            <CardDescription>
+              <strong>Family:</strong> {plant.family}
+            </CardDescription>
+          )}
+          {plant.scientificNameWithAuthor && (
+            <CardDescription>
+              <strong>Scientific Name:</strong> {plant.scientificNameWithAuthor}
+            </CardDescription>
+          )}
+          <CardDescription>
+            <strong>Description:</strong> {plant.description}
+          </CardDescription>
+        </CardContent>
+      </Card>
     </div>
   );
 };
