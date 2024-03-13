@@ -1,14 +1,44 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+// Import UI components from the library
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "./ui/card";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+
+import "./Register.css";
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [picture, setPicture] = useState<File | null>(null);
+  const [fileName, setFileName] = useState("");
 
+  // Handler, um die Dateiauswahl zu behandeln
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setPicture(e.target.files[0]);
+      setFileName(e.target.files[0].name); // Setzt den Namen der ausgewählten Datei
+    } else {
+      setPicture(null);
+      setFileName(""); // Setzt den Dateinamen zurück, wenn keine Datei ausgewählt ist
+    }
+  };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  // Funktion zum Auslösen des Klick-Events auf den echten Datei-Input
+  const triggerFileInput = () => {
+    document.getElementById("fileInput")?.click();
+  };
+
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -18,11 +48,10 @@ function Register() {
     formData.append("email", email);
     formData.append("password", password);
     if (picture) {
-      formData.append("picture", picture); 
+      formData.append("picture", picture);
     }
 
-   const url = "http://localhost:3000/user/register";
-//kein register hintendran??
+    const url = "http://localhost:3000/user/register";
 
     try {
       const response = await fetch(url, {
@@ -41,60 +70,80 @@ function Register() {
     }
   };
 
-  return (
+   return (
     <div className="container mx-auto h-screen flex items-center justify-center">
-      <div className="max-w-md w-full space-y-8">
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
-            required
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-          />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            required
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-          />
-          <input
-            type="file"
-            onChange={(e) => {
-              if (e.target.files && e.target.files[0]) {
-                setPicture(e.target.files[0]);
-              }
-            }}
-            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-          />
-          <button
-            type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-          >
-            Register
-          </button>
-        </form>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Already have an account?{" "}
-          <Link
-            to="/login"
-            className="font-medium text-green-600 hover:text-green-500"
-          >
-            Sign in
-          </Link>
-        </p>
-      </div>
+      <Card>
+        <CardHeader className="space-y-2">
+          <CardTitle className="text-2xl">Create an account</CardTitle>
+          <CardDescription>
+            Enter your details below to create your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="grid gap-2">
+            {" "}
+            {/* space-y-4 für geringeren Abstand */}
+           
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                type="text"
+                className="input-align" // Benutzerdefinierte Klasse hier angewendet
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                className="input-align" // Benutzerdefinierte Klasse hier angewendet
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                className="input-align" // Benutzerdefinierte Klasse hier angewendet
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+           <div className="grid gap-2">
+               <Label htmlFor="image">Image</Label>
+              <div>
+                <input
+                  id="fileInput"
+                  type="file"
+                  onChange={handleFileChange}
+                  style={{ display: 'none' }}
+                />
+                <Button type="button" className="w-full" onClick={triggerFileInput}>
+                  Choose file
+                </Button>
+                {fileName && <div className="mt-2 text-sm text-gray-500">Selected: {fileName}</div>}
+              </div>
+            </div>
+            <Button type="submit" className="w-full">
+              Register
+            </Button>
+          </form>
+          <p className="mt-2 text-center text-sm">
+            Already have an account? <Link to="/login" className="font-medium text-green-600 hover:text-green-500">Sign in</Link>
+          </p>
+        </CardContent>
+        <CardFooter>
+          {/* Footer-Inhalt hier, falls benötigt */}
+        </CardFooter>
+      </Card>
     </div>
   );
 }
