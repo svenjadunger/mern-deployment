@@ -1,39 +1,37 @@
 
 
 const UserModel = require("../../model/user");
+const bcrypt = require("bcryptjs");
+const saltRounds = 10;
 // Create and Save a new user
 exports.create = async (req, res) => {
-  if (
-    !req.body.email &&
-    !req.body.firstName &&
-    !req.body.lastName &&
-    !req.body.phone
-    
-  ) {
-    res.status(400).send({ message: "Content can not be empty!" });
-  }
+  // Deine bestehende Validierungslogik...
 
   const user = new UserModel({
     email: req.body.email,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     phone: req.body.phone,
+    password: req.body.password, // Stelle sicher, dass du das Passwort hier hinzufügst
   });
+    const imagePath = req.file ? req.file.path : null;
 
-  await user
-    .save()
-    .then((data) => {
-      res.send({
-        message: "User created successfully!!",
-        user: data,
-      });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while creating user",
-      });
+  try {
+    const savedUser = await user.save();
+    savedUser.password = undefined; // Entfernt das Passwortfeld
+    res.status(201).send({
+      message: "User created successfully!!",
+      user: savedUser,
     });
+  } catch (err) {
+    res.status(500).send({
+      message: err.message || "Some error occurred while creating the user",
+    });
+  }
 };
+
+
+
 // Retrieve all users from the database.
 exports.findAll = async (req, res) => {
   try {
@@ -98,4 +96,24 @@ exports.destroy = async (req, res) => {
         message: err.message,
       });
     });
+};
+
+
+exports.register = async (req, res) => {
+  // Hier kommt deine Logik zur Validierung der anderen Felder
+  try {
+    const user = new User({
+      // Deine anderen Benutzerfelder
+      image: req.file.path, // Pfad zum Bild
+    });
+    await user.save();
+    res.status(201).send({ message: "Benutzer erfolgreich erstellt", user });
+  } catch (error) {
+    res
+      .status(500)
+      .send({
+        message: "Fehler bei der Erstellung des Benutzers",
+        error: error.message,
+      });
+  }
 };

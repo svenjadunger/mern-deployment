@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
+// import Link from "next/link";
 import { cn } from "@/lib/utils";
 // import { Icons } from "./components/icons";
 import {
@@ -11,7 +11,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
+  // navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 const components: { title: string; href: string; description: string }[] = [
@@ -106,18 +106,18 @@ export function NavigationMenuDemo() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Contact
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuTrigger
+            onClick={() => (window.location.href = "/docs")}
+          >
+            Contact
+          </NavigationMenuTrigger>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/register" passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Registration
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuTrigger
+            onClick={() => (window.location.href = "/register")}
+          >
+            Registration
+          </NavigationMenuTrigger>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

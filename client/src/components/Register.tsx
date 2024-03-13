@@ -7,24 +7,27 @@ function Register() {
   const [password, setPassword] = useState("");
   const [picture, setPicture] = useState<File | null>(null);
 
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("name", name);
+    formData.append("firstName", name);
+    formData.append("lastName", name);
+    formData.append("phone", "45837783");
     formData.append("email", email);
     formData.append("password", password);
+    if (picture) {
+      formData.append("picture", picture); // Bild zum FormData hinzufügen, wenn ausgewählt
+    }
 
-   if (picture) {
-     formData.append("picture", picture);
-   }
-
-    const url = "http://localhost:3000/user"; //kein register hintendran??
+   const url = "http://localhost:3000/user/register";
+//kein register hintendran??
 
     try {
       const response = await fetch(url, {
         method: "POST",
-        body: formData, // JSON.stringify remove
+        body: formData,
       });
 
       const data = await response.json();
@@ -41,11 +44,7 @@ function Register() {
   return (
     <div className="container mx-auto h-screen flex items-center justify-center">
       <div className="max-w-md w-full space-y-8">
-        <form
-          className="mt-8 space-y-6"
-          onSubmit={handleSubmit}
-          encType="multipart/form-data"
-        >
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input
             type="text"
             value={name}

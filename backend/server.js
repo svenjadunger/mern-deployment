@@ -10,11 +10,8 @@ const { multerUpload } = require("./middlewares/uploadMiddleware");
 
 
 // Connection to Database
-mongoose
-  .connect(dbConfig.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true, 
-  })
+// Connection to Database
+mongoose.connect(dbConfig.url)
   .then(() => {
     console.log("Database Connected Successfully!!");
   })
@@ -26,11 +23,14 @@ mongoose
 const app = express();
 
 // Import Route-Modules
-const UserRoute = require("./app/routes/User");
+const userRoutes = require("./app/routes/userRoutes");
+
 const PlantRoute = require("./app/routes/Plant");
-const imageRoute = require("./app/routes/Image"); // Pfad ggf. anpasse
+const imageRoute = require("./app/routes/Image"); 
+
 
 app.use(cors());
+
 
 app.use("/UserImages", express.static("UserImages"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -61,7 +61,8 @@ function getDurationInMilliseconds(start) {
 }
 
 // Routes
-app.use("/user", UserRoute);
+app.use("/user", userRoutes);
+
 app.use("/plant", PlantRoute);
 app.use("/image",imageRoute)
 
