@@ -109,7 +109,7 @@ export function NavigationMenuDemo() {
           <NavigationMenuTrigger
             onClick={() => (window.location.href = "/docs")}
           >
-            Contact
+            Image Upload
           </NavigationMenuTrigger>
         </NavigationMenuItem>
         <NavigationMenuItem>
