@@ -20,7 +20,7 @@ mongoose.connect(dbConfig.url)
 
 const app = express();
 
-// Import Route-Modules
+
 const userRoutes = require("./app/routes/userRoutes");
 
 const PlantRoute = require("./app/routes/Plant");
