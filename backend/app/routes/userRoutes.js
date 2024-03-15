@@ -7,6 +7,63 @@ const { multerUpload } = require("../../middlewares/uploadMiddleware");
 
 const router = express.Router();
 
+
+
+//login: 
+const jwt = require("jsonwebtoken");
+
+// Ersetze "deinGeheimerSchlüssel" durch einen echten geheimen Schlüssel, der in deiner Umgebungskonfiguration gespeichert ist
+const SECRET_KEY = "deinGeheimerSchlüssel";
+
+// POST Route für Benutzer-Login
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Überprüfe, ob der Benutzer existiert
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(401)
+        .json({
+          error: "Authentifizierung fehlgeschlagen: Benutzer nicht gefunden.",
+        });
+    }
+
+    // Überprüfe das Passwort
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({
+          error: "Authentifizierung fehlgeschlagen: Falsches Passwort.",
+        });
+    }
+
+    // Erstelle JWT
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" }, (err, token) => {
+      if (err) throw err;
+      res.json({ token });
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Serverfehler" });
+  }
+});
+
+
+
+
+
+
+
+
 // get route for benutzerdaten
 router.get("/:id", async (req, res) => {
   try {
