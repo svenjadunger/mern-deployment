@@ -1,4 +1,3 @@
-// controllers/ImageController.js
 
 const ImageModel = require("../../models/Image");
 // upload image
